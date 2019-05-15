@@ -7,6 +7,14 @@ public class Cliente extends DefaultModel {
 	public String Email;
 	public String Telefone;
 	public Date Data_Nasc;
+
+	public Cliente(){}
+	public Cliente(String nome, String email, String telefone, Date data_nasc){
+		Nome = nome;
+		Email = email;
+		Telefone = telefone;
+		Data_Nasc = data_nasc;
+	}
 	
 	public String getNome() {
 		return Nome;

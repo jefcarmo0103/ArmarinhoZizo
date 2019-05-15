@@ -3,7 +3,6 @@ package DAOs;
 import java.util.ArrayList;
 
 public abstract class DefaultDAO {
-	protected int Id;
 
 	public abstract ArrayList<?> getAll();
 	public abstract ArrayList<?> getById(int Id);

@@ -1,5 +1,6 @@
 package Models;
 
-public class DefaultModel {
+public abstract class DefaultModel {
+    protected int Id;
 
 }
