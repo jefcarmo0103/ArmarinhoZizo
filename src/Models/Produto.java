@@ -4,6 +4,8 @@ public class Produto extends DefaultModel {
 
     public String NomeProduto;
     public double PrecoUnitario;
+    public int Quantidade;
+
 
     public Produto(){}
     public Produto(String nome_produto, double preco_unit){
@@ -25,6 +27,14 @@ public class Produto extends DefaultModel {
 
     public void setPrecoUnitario(double precoUnitario) {
         PrecoUnitario = precoUnitario;
+    }
+
+    public int getQuantidade() {
+        return Quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        Quantidade = quantidade;
     }
 
 

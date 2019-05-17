@@ -1,5 +1,7 @@
 package DAOs;
 
-public class ClienteDAO {
+import Interfaces.IGetQuerys;
 
+public class ClienteDAO  {
+    private String table = "Cliente";
 }
