@@ -3,20 +3,20 @@ package Models;
 import java.util.*;
 
 public class Compra extends DefaultModel{
-    public Date DataCompra;
+    public Calendar DataCompra;
     public double ValorTotal;
 
     public Compra(){}
-    public Compra(Date data_compra, double valor_total){
+    public Compra(Calendar data_compra, double valor_total){
         DataCompra = data_compra;
         ValorTotal = valor_total;
     }
 
-    public Date getDataCompra() {
+    public Calendar getDataCompra() {
         return DataCompra;
     }
 
-    public void setDataCompra(Date dataCompra) {
+    public void setDataCompra(Calendar dataCompra) {
         DataCompra = dataCompra;
     }
 

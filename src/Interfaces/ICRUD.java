@@ -1,11 +1,12 @@
 package Interfaces;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-public interface ICRUD {
-	ArrayList<?> getAll();
-	ArrayList<?> getById(int Id);
-	void Add(int Id);
-	void Delete(int Id);
-	void Update(int Id);
+public interface ICRUD <T, U extends String>{
+	ArrayList<?> getAll(U sqlQuery);
+	ArrayList<?> getById(T objSelId, U sqlQuery);
+	void Add(T objAdd, U sqlQuery);
+	void Delete(T objDel, U sqlQuery);
+	void Update(T objAdd, U sqlQuery);
 }

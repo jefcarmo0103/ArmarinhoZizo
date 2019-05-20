@@ -1,15 +1,15 @@
 package Models;
 
-import java.util.*;
+import java.util.Calendar;
 
 public class Cliente extends DefaultModel {
 	public String Nome;
 	public String Email;
 	public String Telefone;
-	public Date Data_Nasc;
+	public Calendar Data_Nasc;
 
 	public Cliente(){}
-	public Cliente(String nome, String email, String telefone, Date data_nasc){
+	public Cliente(String nome, String email, String telefone, Calendar data_nasc){
 		Nome = nome;
 		Email = email;
 		Telefone = telefone;
@@ -34,10 +34,10 @@ public class Cliente extends DefaultModel {
 	public void setTelefone(String telefone) {
 		Telefone = telefone;
 	}
-	public Date getData_Nasc() {
+	public Calendar getData_Nasc() {
 		return Data_Nasc;
 	}
-	public void setData_Nasc(Date data_Nasc) {
+	public void setData_Nasc(Calendar data_Nasc) {
 		Data_Nasc = data_Nasc;
 	}
 	
