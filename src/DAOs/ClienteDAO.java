@@ -15,16 +15,19 @@ public class ClienteDAO extends DefaultDAO {
     @Override
     public void Adiciona(DefaultModel model) {
         Dictionary<Integer, Object> parameters = getParameters(model);
+        crud.Add(parameters, getInsert());
     }
 
     @Override
     public void Altera(DefaultModel model) {
-
+    	Dictionary<Integer, Object> parameters = getParameters(model);
+    	crud.Update(parameters, getUpdate());
     }
 
     @Override
     public void Exclui(DefaultModel model) {
-
+    	Dictionary<Integer, Object> parameters = getParameters(model);
+    	crud.Delete(parameters, getDelete());
     }
 
     @Override
