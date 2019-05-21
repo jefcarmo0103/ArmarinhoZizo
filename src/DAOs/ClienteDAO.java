@@ -31,6 +31,11 @@ public class ClienteDAO extends DefaultDAO {
     }
 
     @Override
+    public ArrayList SelecionarTodos() {
+        return null;
+    }
+
+    @Override
     public Dictionary getParameters(DefaultModel model) {
         Dictionary<Integer, Object> params = null;
 
@@ -58,6 +63,11 @@ public class ClienteDAO extends DefaultDAO {
     @Override
     public String getSelectAll() {
         return String.format("select * from %s", table);
+    }
+
+    @Override
+    public String getSelectById() {
+        return String.format("select * from %s where ID_CLIENTE = ?", table);
     }
 
     @Override

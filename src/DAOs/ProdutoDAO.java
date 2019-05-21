@@ -1,6 +1,7 @@
 package DAOs;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Dictionary;
 
 import Interfaces.ICalculate;
@@ -33,6 +34,11 @@ public class ProdutoDAO extends DefaultDAO {
 	}
 
 	@Override
+	public ArrayList SelecionarTodos() {
+		return null;
+	}
+
+	@Override
 	public Dictionary getParameters(DefaultModel model) {
 		Dictionary<Integer, Object> params = null;
 
@@ -58,6 +64,11 @@ public class ProdutoDAO extends DefaultDAO {
 	@Override
 	public String getSelectAll() {
 		return String.format("select * from %s", table);
+	}
+
+	@Override
+	public String getSelectById() {
+		return String.format("select * from %s where ID_PRODUTO = ?", table);
 	}
 
 	@Override

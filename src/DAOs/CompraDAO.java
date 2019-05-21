@@ -1,20 +1,15 @@
 package DAOs;
 
-import Interfaces.ICalculate;
 import Models.Compra;
 import Models.DefaultModel;
-import Models.Produto;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.List;
 
-public class CompraDAO extends DefaultDAO  implements ICalculate {
+public class CompraDAO extends DefaultDAO {
     private String table = "compra";
-    @Override
-    public double calculaPrecoFinal(List<Produto> produtos) {
-        return 0;
-    }
+
 
 	@Override
 	public void Adiciona(DefaultModel model) {
@@ -33,6 +28,11 @@ public class CompraDAO extends DefaultDAO  implements ICalculate {
 	public void Exclui(DefaultModel model) {
 		Dictionary<Integer, Object> parameters = getParameters(model);
         crud.Delete(parameters, getInsert());					
+	}
+
+	@Override
+	public ArrayList<Compra> SelecionarTodos() {
+		return null;
 	}
 
 	@Override
@@ -59,6 +59,11 @@ public class CompraDAO extends DefaultDAO  implements ICalculate {
 	@Override
 	public String getSelectAll() {
 		return String.format("select * from %s", table);
+	}
+
+	@Override
+	public String getSelectById() {
+		return String.format("select * from %s where ID_COMPRA = ?", table);
 	}
 
 	@Override
