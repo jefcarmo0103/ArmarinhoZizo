@@ -8,7 +8,13 @@ public class Venda extends DefaultModel {
     public double PrecoTotal;
     public Cliente Consumidor;
 
-    public Venda(){}
+    public Cliente getConsumidor() {
+		return Consumidor;
+	}
+	public void setConsumidor(Cliente consumidor) {
+		Consumidor = consumidor;
+	}
+	public Venda(){}
     public Venda(Calendar data_venda, double preco_total, Cliente cliente){
         DataVenda = data_venda;
         PrecoTotal = preco_total;
