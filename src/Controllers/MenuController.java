@@ -24,27 +24,27 @@ public class MenuController implements Initializable {
 
     @FXML
     private void abrirProdutos() {
-        abrir("/src/Views/Produto.fxml", "Produtos");
+        abrir("/Views/Produto.fxml", "Produtos");
     }
 
     @FXML
     private void abrirClientes() {
-        abrir("/src/Views/Cliente.fxml", "Clientes");
+        abrir("/Views/Cliente.fxml", "Clientes");
     }
 
     @FXML
     private void abrirFornecedores() {
-        abrir("/src/Views/Fornecedor.fxml", "Fornecedores");
+        abrir("/Views/Fornecedor.fxml", "Fornecedores");
     }
 
     @FXML
     private void abrirCompras() {
-        abrir("/src/Views/Compra.fxml", "Compras");
+        abrir("/Views/Compra.fxml", "Compras");
     }
 
     @FXML
     private void abrirVendas() {
-        abrir("/src/Views/Venda.fxml", "Vendas");
+        abrir("/Views/Venda.fxml", "Vendas");
     }
 
     private void abrir(String url, String title) {
