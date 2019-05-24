@@ -20,7 +20,7 @@ public class CRUDMethods implements ICRUD {
     public Map<?,?> getAll(String sqlQuery) {
 
         ResultSet rs = ExecutaSQL(null,sqlQuery);
-        Map<String,String> result = makeMap(rs);
+        Map<String,Object> result = makeMap(rs);
 
         return result;
     }
@@ -31,7 +31,7 @@ public class CRUDMethods implements ICRUD {
         Dictionary<Integer, Object> parameters = (Dictionary<Integer, Object>)objSelId;
 
         ResultSet rs = ExecutaSQL(parameters,sqlQuery);
-        Map<String,String> result = makeMap(rs);
+        Map<String,Object> result = makeMap(rs);
 
         return result;
 
@@ -56,9 +56,9 @@ public class CRUDMethods implements ICRUD {
         ExecuteQuery(parameters, sqlQuery);
     }
 
-    private Map<String, String> makeMap(ResultSet rs){
+    private Map<String, Object> makeMap(ResultSet rs){
 
-        Map<String,String> result = null;
+        Map<String,Object> result = null;
         try{
             List<String> columnNames = new ArrayList<>();
             ResultSetMetaData rsmd = rs.getMetaData();

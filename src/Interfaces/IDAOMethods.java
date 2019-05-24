@@ -10,6 +10,6 @@ public interface IDAOMethods <T extends Integer, U> {
     void Adiciona(DefaultModel model);
     void Altera(DefaultModel model);
     void Exclui(DefaultModel model);
-    ArrayList<U> SelecionarTodos();
+    ArrayList<U> SelecionarTodos() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException;
     Dictionary<T,U> getParameters(DefaultModel model);
 }

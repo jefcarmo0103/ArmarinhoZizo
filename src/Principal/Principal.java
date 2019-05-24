@@ -1,5 +1,6 @@
 package Principal;
 
+import Models.Cliente;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,10 +8,23 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 
 public class Principal extends Application {
 
     public static void main(String[] args) {
+
+        Class<? extends Cliente> clazz = new Cliente().getClass();
+        Field[] campos = clazz.getDeclaredFields();
+
+        for(int j = 0; j < campos.length; j++){
+            String campo = campos[j].getName();
+            Type tipo = campos[j].getType();
+
+        }
+
+
         launch(args);
     }
 

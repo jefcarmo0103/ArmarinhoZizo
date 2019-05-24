@@ -2,6 +2,10 @@ package DAOs;
 
 import Models.Cliente;
 import Models.DefaultModel;
+import javafx.collections.ObservableList;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.sql.Date;
 
@@ -31,8 +35,23 @@ public class ClienteDAO extends DefaultDAO {
     }
 
     @Override
-    public ArrayList SelecionarTodos() {
-        return null;
+    public ArrayList<Cliente> SelecionarTodos() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+        Map<String,Object> result = (Map<String,Object>)crud.getAll(getSelectAll());
+        Class<? extends Cliente> clazz = new Cliente().getClass();
+        ArrayList<Cliente> resposta = new ArrayList<>();
+        Field[] campos = clazz.getDeclaredFields();
+
+        for(int i = 0; i < result.size(); i++){
+            Cliente cliente = new Cliente();
+            for(int j = 0; j < campos.length; j++){
+                String campo = campos[j].getName();
+                Object o = result.get(campo);
+                Field field = clazz.getDeclaredField(campos[j].getName());
+                field.set(cliente,o);
+            }
+            resposta.add(cliente);
+        }
+        return resposta;
     }
 
     @Override
