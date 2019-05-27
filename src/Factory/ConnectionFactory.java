@@ -2,16 +2,22 @@ package Factory;
 
 import java.sql.*;
 
-public abstract class ConnectionFactory {
+public class ConnectionFactory {
+
+    private static Connection connection = null;
 
     public static Connection getConnection(){
         try{
-            //return DriverManager.getConnection("jdbc:mysql://localhost:3306/PapelariaZizo","root", "123456");
-            return DriverManager.getConnection("jdbc:mysql://localhost:8080/PapelariaZizo","root", "123456");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Zizo_Papelaria","root", "123456");
+            //return DriverManager.getConnection("jdbc:mysql://localhost:8080/Zizo_Papelaria","root", "123456");
+
+            connection.setAutoCommit(true);
         }
         catch(SQLException e){
             throw new RuntimeException(e);
         }
+
+        return connection;
 
     }
 }

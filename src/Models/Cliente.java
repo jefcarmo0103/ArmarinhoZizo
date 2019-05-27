@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class Cliente extends DefaultModel {
 	public String Nome;
@@ -37,9 +38,14 @@ public class Cliente extends DefaultModel {
 	public Calendar getData_Nasc() {
 		return Data_Nasc;
 	}
+
 	public void setData_Nasc(Calendar data_Nasc) {
+
 		Data_Nasc = data_Nasc;
 	}
+
+
+
 	
 	
 	

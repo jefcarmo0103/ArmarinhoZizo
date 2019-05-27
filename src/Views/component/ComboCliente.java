@@ -1,47 +1,89 @@
 package Views.component;
 
+import DAOs.ClienteDAO;
+import Models.Cliente;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class ComboCliente {
+import java.util.ArrayList;
 
-    private ComboBox cmb;
+public class ComboCliente extends ComboBox {
+    ComboBox<Cliente> cmbCliente;
+    ClienteDAO dao;
 
-    public ComboCliente(ComboBox cmb) {
-        this.cmb = cmb;
-        this.cmb.getEditor().setOnKeyReleased(this::handleOnKeyReleased);
-        this.cmb.setOnHidden(this::handleOnHiding);
+    private ClienteDAO getInstanceDAO(){
+        dao = new ClienteDAO();
+        return dao;
     }
 
-    public void handleOnKeyReleased(KeyEvent e) {
+    private ArrayList getSelect(){
 
-        if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
-            return;
+        ArrayList list;
+        try{
+            list = getInstanceDAO().SelecionarTodos();
+
+        }
+        catch(Exception e){
+            throw new RuntimeException(e);
         }
 
-        if (!cmb.getSelectionModel().isEmpty() && (e.getCode() == KeyCode.BACK_SPACE || e.getCode() == KeyCode.ESCAPE || e.getCode() == KeyCode.DELETE)) {
-            cmb.getEditor().setText("");
-            cmb.getSelectionModel().clearSelection();
-            cmb.hide();
-        }
-
-        try {
-            //cmb.setItems(ClienteDAO.listar(cmb.getEditor().getText(), 10, 0));
-            //cmb.show();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        return list;
     }
 
-    public void handleOnHiding(Event e) {
-        try {
-            //Cliente s = (Cliente) cmb.getSelectionModel().getSelectedItem();
-            //cmb.getSelectionModel().select(s);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    public ComboBox initCombo (ComboBox cmb){
+
+
+        cmbCliente = new ComboBox<>();
+
+        ObservableList allClientes = FXCollections.observableArrayList(getSelect());
+        cmbCliente.getItems().addAll(allClientes);
+        //cmbCliente.setConverter();
+
+        cmbCliente.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cliente>() {
+            @Override
+            public void changed(ObservableValue<? extends Cliente> observable,
+                                Cliente oldValue, Cliente newValue) {
+                cmbClienteChanged(observable, oldValue, newValue);
+            }
+
+        });
+
+        cmbCliente.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+           @Override
+           public void changed(ObservableValue<? extends Number> observable,
+                               Number oldValue, Number newValue) {
+               cmbClienteIndexChanged(observable, oldValue, newValue);
+           }
+        });
+
+        cmbCliente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                valueChanged(cmbCliente);
+            }
+        });
+
+
+        return null;
     }
+
+    private void cmbClienteIndexChanged(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+    }
+
+    private void valueChanged(ComboBox<Cliente> cmbCliente) {
+        Cliente c = cmbCliente.getValue();
+    }
+
+    private void cmbClienteChanged(ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) {
+    }
+
 
 }

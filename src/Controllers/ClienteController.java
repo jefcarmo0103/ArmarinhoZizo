@@ -103,7 +103,6 @@ public class ClienteController implements Initializable, Controller{
     private void novo() {
         this.cliente = new Cliente();
         campoNome.setText("");
-        campoCpf.setText("");
         campoDataNascimento.setValue(LocalDate.of(2000, 1, 1));
         trocar(true);
     }

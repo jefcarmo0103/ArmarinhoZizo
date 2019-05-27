@@ -7,30 +7,28 @@ import Models.Produto;
 import Models.Venda;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.List;
+import java.util.*;
 
 public class VendaDAO extends DefaultDAO  {
-	private String table = "venda";
+	private String table = "Venda";
 
     @Override
     public void Adiciona(DefaultModel model) {
-    	Dictionary<Integer, Object> parameters = getParameters(model);
+    	Map<Integer, Object> parameters = getParameters(model);
         crud.Add(parameters, getInsert());		
 
     }
 
     @Override
     public void Altera(DefaultModel model) {
-    	Dictionary<Integer, Object> parameters = getParameters(model);
+    	Map<Integer, Object> parameters = getParameters(model);
         crud.Add(parameters, getUpdate());
 
     }
 
     @Override
     public void Exclui(DefaultModel model) {
-    	Dictionary<Integer, Object> parameters = getParameters(model);
+    	Map<Integer, Object> parameters = getParameters(model);
         crud.Add(parameters, getDelete());
 
     }
@@ -41,8 +39,8 @@ public class VendaDAO extends DefaultDAO  {
     }
 
     @Override
-    public Dictionary getParameters(DefaultModel model) {
-    	Dictionary<Integer, Object> params = null;
+    public Map getParameters(DefaultModel model) {
+    	Map<Integer, Object> params = new HashMap<Integer, Object>();
 
         Venda venda = (Venda) model;
 

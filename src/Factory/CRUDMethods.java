@@ -28,7 +28,7 @@ public class CRUDMethods implements ICRUD {
     @Override
     public Map<?,?> getById(Object objSelId, String sqlQuery) {
 
-        Dictionary<Integer, Object> parameters = (Dictionary<Integer, Object>)objSelId;
+        Map<Integer, Object> parameters = (Map<Integer, Object>)objSelId;
 
         ResultSet rs = ExecutaSQL(parameters,sqlQuery);
         Map<String,Object> result = makeMap(rs);
@@ -39,26 +39,26 @@ public class CRUDMethods implements ICRUD {
 
     @Override
     public void Add(Object objAdd, String sqlQuery) {
-        Dictionary<Integer, Object> parameters = (Dictionary<Integer, Object>)objAdd;
+        Map<Integer, Object> parameters = (Map<Integer, Object>)objAdd;
         ExecuteQuery(parameters, sqlQuery);
 
     }
 
     @Override
     public void Delete(Object objDel, String sqlQuery) {
-        Dictionary<Integer, Object> parameters = (Dictionary<Integer, Object>)objDel;
+        Map<Integer, Object> parameters = (Map<Integer, Object>)objDel;
         ExecuteQuery(parameters, sqlQuery);
     }
 
     @Override
     public void Update(Object objUpd, String sqlQuery) {
-        Dictionary<Integer, Object> parameters = (Dictionary<Integer, Object>)objUpd;
+        Map<Integer, Object> parameters = (Map<Integer, Object>)objUpd;
         ExecuteQuery(parameters, sqlQuery);
     }
 
     private Map<String, Object> makeMap(ResultSet rs){
 
-        Map<String,Object> result = null;
+        Map<String,Object> result = new HashMap<>();
         try{
             List<String> columnNames = new ArrayList<>();
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -90,6 +90,9 @@ public class CRUDMethods implements ICRUD {
                     result.put(columnNames.get(colIndex), objString);
                 }
             }
+
+            rs.close();
+            smt.close();
         }
         catch(SQLException e){
             throw new RuntimeException(e);
@@ -100,7 +103,7 @@ public class CRUDMethods implements ICRUD {
         return result;
     }
 
-    private void ExecuteQuery(Dictionary<Integer, Object> params, String sql){
+    private void ExecuteQuery(Map<Integer, Object> params, String sql){
         try{
             smt= connection.prepareStatement(sql);
             smt = setParameters(params);
@@ -112,7 +115,7 @@ public class CRUDMethods implements ICRUD {
         }
     }
 
-    private ResultSet ExecutaSQL (Dictionary<Integer, Object> params, String sql){
+    private ResultSet ExecutaSQL (Map<Integer, Object> params, String sql){
         ResultSet rs = null;
 
         try{
@@ -122,8 +125,6 @@ public class CRUDMethods implements ICRUD {
                 smt = setParameters(params);
 
             rs = smt.executeQuery();
-            rs.close();
-            smt.close();
 
         }
         catch(SQLException e){
@@ -135,17 +136,17 @@ public class CRUDMethods implements ICRUD {
 
 
 
-    private PreparedStatement setParameters(Dictionary<Integer, Object> params){
+    private PreparedStatement setParameters(Map<Integer, Object> params){
 
         try{
-            for(int i = 1; i < params.size(); i++){
+            for(int i = 1; i <= params.size(); i++){
 
                 Object o = params.get(i);
 
-                if(o instanceof Calendar){
-                    Calendar cl = (Calendar)o;
-                    Date data = new Date(cl.getTimeInMillis());
-                    smt.setDate(i,data);
+                if(o instanceof Date){
+                    Date cl = (Date) o;
+                    //Date data = new Date(cl.getTimeInMillis());
+                    smt.setDate(i,cl);
                 }
 
                 else if (o instanceof Double)

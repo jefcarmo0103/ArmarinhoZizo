@@ -2,12 +2,11 @@ package DAOs;
 
 import Models.Cliente;
 import Models.DefaultModel;
-import javafx.collections.ObservableList;
-
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.*;
-import java.sql.Date;
 
 public class ClienteDAO extends DefaultDAO {
     private String table = "Cliente";
@@ -18,45 +17,71 @@ public class ClienteDAO extends DefaultDAO {
 
     @Override
     public void Adiciona(DefaultModel model) {
-        Dictionary<Integer, Object> parameters = getParameters(model);
+        Map<Integer, Object> parameters = getParameters(model);
         crud.Add(parameters, getInsert());
     }
 
     @Override
     public void Altera(DefaultModel model) {
-    	Dictionary<Integer, Object> parameters = getParameters(model);
+        Map<Integer, Object> parameters = getParameters(model);
     	crud.Update(parameters, getUpdate());
     }
 
     @Override
     public void Exclui(DefaultModel model) {
-    	Dictionary<Integer, Object> parameters = getParameters(model);
+        Map<Integer, Object> parameters = getParameters(model);
     	crud.Delete(parameters, getDelete());
     }
 
     @Override
-    public ArrayList<Cliente> SelecionarTodos() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    public ArrayList<Cliente> SelecionarTodos() throws NoSuchFieldException, IllegalAccessException, ParseException {
+
         Map<String,Object> result = (Map<String,Object>)crud.getAll(getSelectAll());
         Class<? extends Cliente> clazz = new Cliente().getClass();
         ArrayList<Cliente> resposta = new ArrayList<>();
         Field[] campos = clazz.getDeclaredFields();
 
-        for(int i = 0; i < result.size(); i++){
-            Cliente cliente = new Cliente();
-            for(int j = 0; j < campos.length; j++){
-                String campo = campos[j].getName();
-                Object o = result.get(campo);
-                Field field = clazz.getDeclaredField(campos[j].getName());
+        int x = 0,i = 0;
+        Cliente cliente = new Cliente();
+
+        while (x < campos.length){
+
+
+            String campo = campos[x].getName().toUpperCase().concat("_CLIENTE");
+            Object o = result.get(campo);
+            Field field = clazz.getDeclaredField(campos[x].getName());
+
+            if(isThisDateValid((String)o)){
+                Calendar data = Calendar.getInstance();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                sdf.setLenient(false);
+
+                Date date = sdf.parse((String)o);
+                data.setTime(date);
+
+                field.set(cliente,data);
+            }
+            else{
                 field.set(cliente,o);
             }
-            resposta.add(cliente);
+
+            i++;
+            x++;
+
+            if(i >= 4){
+                resposta.add(cliente);
+                cliente = new Cliente();
+                i = 0;
+            }
         }
+
         return resposta;
     }
 
     @Override
-    public Dictionary getParameters(DefaultModel model) {
-        Dictionary<Integer, Object> params = null;
+    public Map getParameters(DefaultModel model) {
+        Map<Integer, Object> params = new HashMap<Integer, Object>();
 
         Cliente cliente = (Cliente) model;
 
@@ -68,10 +93,34 @@ public class ClienteDAO extends DefaultDAO {
         return params;
     }
 
+    private boolean isThisDateValid(String dateToValidate){
+
+        if(dateToValidate == null){
+            return false;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        sdf.setLenient(false);
+
+        try {
+
+            //if not valid, it will throw ParseException
+            Date date = sdf.parse(dateToValidate);
+            System.out.println(date);
+
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
 
     @Override
     public String getInsert() {
-        return String.format("insert into %s values (?,?,?,?)", table);
+        return String.format("insert into %s(NOME_CLIENTE, DATA_NASC_CLIENTE, EMAIL_CLIENTE, TELEFONE) values (?,?,?,?)", table);
     }
 
     @Override

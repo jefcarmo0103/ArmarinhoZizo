@@ -3,6 +3,8 @@ package DAOs;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 import Interfaces.ICalculate;
 import Models.Cliente;
@@ -14,21 +16,21 @@ public class ProdutoDAO extends DefaultDAO {
 
 	@Override
 	public void Adiciona(DefaultModel model) {
-		Dictionary<Integer, Object> parameters = getParameters(model);
+		Map<Integer, Object> parameters = getParameters(model);
 		crud.Add(parameters, getInsert());
 		
 	}
 
 	@Override
 	public void Altera(DefaultModel model) {
-		Dictionary<Integer, Object> parameters = getParameters(model);
+		Map<Integer, Object> parameters = getParameters(model);
 		crud.Update(parameters, getInsert());
 		
 	}
 
 	@Override
 	public void Exclui(DefaultModel model) {
-		Dictionary<Integer, Object> parameters = getParameters(model);
+		Map<Integer, Object> parameters = getParameters(model);
 		crud.Delete(parameters, getDelete());
 		
 	}
@@ -39,8 +41,8 @@ public class ProdutoDAO extends DefaultDAO {
 	}
 
 	@Override
-	public Dictionary getParameters(DefaultModel model) {
-		Dictionary<Integer, Object> params = null;
+	public Map getParameters(DefaultModel model) {
+		Map<Integer, Object> params = new HashMap<Integer, Object>();
 
         Produto produto = (Produto) model;
 

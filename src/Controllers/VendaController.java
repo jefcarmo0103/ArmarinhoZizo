@@ -1,6 +1,7 @@
 package Controllers;
 
 import DAOs.*;
+import Models.Cliente;
 import Models.Produto;
 import Models.Venda;
 import Views.component.*;
@@ -8,6 +9,9 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -156,6 +160,9 @@ public class VendaController implements Initializable, Controller, Itens {
         colunaEditar.setCellValueFactory(new PropertyValueFactory<>("codigoEdicao"));
         colunaExcluir.setCellFactory(new BotaoExcluir(this));
         colunaExcluir.setCellValueFactory(new PropertyValueFactory<>("codigoEdicao"));
+
+
+
         paginacao.setPageFactory(new Callback<Integer, Node>() {
 
             @Override
@@ -166,8 +173,13 @@ public class VendaController implements Initializable, Controller, Itens {
         });
 
         try {
-            ComboCliente cf = new ComboCliente(comboCliente);
-            //comboCliente.setItems(ClienteDAO.listar("", 10, 0));
+            //ComboCliente cf = new ComboCliente(comboCliente);
+            ObservableList clientes = FXCollections.observableArrayList(new ClienteDAO().SelecionarTodos());
+            comboCliente.setItems(clientes);
+            comboCliente.getSelectionModel().select(1);
+            System.out.println(comboCliente.getValue());
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

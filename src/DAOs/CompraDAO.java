@@ -6,6 +6,8 @@ import Models.DefaultModel;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CompraDAO extends DefaultDAO {
     private String table = "compra";
@@ -13,20 +15,20 @@ public class CompraDAO extends DefaultDAO {
 
 	@Override
 	public void Adiciona(DefaultModel model) {
-		Dictionary<Integer, Object> parameters = getParameters(model);
+		Map<Integer, Object> parameters = getParameters(model);
         crud.Add(parameters, getInsert());		
 	}
 
 	@Override
 	public void Altera(DefaultModel model) {
-		Dictionary<Integer, Object> parameters = getParameters(model);
+		Map<Integer, Object> parameters = getParameters(model);
         crud.Update(parameters, getInsert());		
 		
 	}
 
 	@Override
 	public void Exclui(DefaultModel model) {
-		Dictionary<Integer, Object> parameters = getParameters(model);
+		Map<Integer, Object> parameters = getParameters(model);
         crud.Delete(parameters, getInsert());					
 	}
 
@@ -36,8 +38,8 @@ public class CompraDAO extends DefaultDAO {
 	}
 
 	@Override
-	public Dictionary getParameters(DefaultModel model) {
-		Dictionary<Integer, Object> params = null;
+	public Map getParameters(DefaultModel model) {
+		Map<Integer, Object> params = new HashMap<Integer, Object>();
 
         Compra compra = (Compra) model;
 
