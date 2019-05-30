@@ -5,18 +5,22 @@ import Models.Cliente;
 import Models.Produto;
 import Models.Venda;
 import Views.component.*;
+
+import java.awt.*;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.Light;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.util.Callback;
@@ -65,7 +69,7 @@ public class VendaController implements Initializable, Controller, Itens {
     private Label rotuloCliente;
 
     @FXML
-    private ComboBox comboCliente;
+    private ComboBox cbCliente;
 
     @FXML
     private Label rotuloData;
@@ -155,12 +159,14 @@ public class VendaController implements Initializable, Controller, Itens {
         colunaData.setCellFactory(new ColunaData());
         colunaTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
         colunaTotal.setCellFactory(new ColunaValor());
-        colunaSituacao.setCellValueFactory(new PropertyValueFactory<>("situacao"));
         colunaEditar.setCellFactory(new BotaoEditar(this));
         colunaEditar.setCellValueFactory(new PropertyValueFactory<>("codigoEdicao"));
         colunaExcluir.setCellFactory(new BotaoExcluir(this));
         colunaExcluir.setCellValueFactory(new PropertyValueFactory<>("codigoEdicao"));
 
+
+        ComboCliente cmbCliente = new ComboCliente(cbCliente);
+        ComboProduto cp = new ComboProduto(comboProduto);
 
 
         paginacao.setPageFactory(new Callback<Integer, Node>() {
@@ -172,21 +178,9 @@ public class VendaController implements Initializable, Controller, Itens {
             }
         });
 
-        try {
-            //ComboCliente cf = new ComboCliente(comboCliente);
-            ObservableList clientes = FXCollections.observableArrayList(new ClienteDAO().SelecionarTodos());
-            comboCliente.setItems(clientes);
-            comboCliente.getSelectionModel().select(1);
-            System.out.println(comboCliente.getValue());
-
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
 
         try {
-            ComboProduto cp = new ComboProduto(comboProduto);
-            //comboProduto.setItems(ProdutoDAO.listar("", 10, 0));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -239,7 +233,7 @@ public class VendaController implements Initializable, Controller, Itens {
         boolean erro = false;
 
         try {
-            if (comboCliente.getSelectionModel().isEmpty()) {
+            if (cbCliente.getSelectionModel().isEmpty()) {
                 throw new Exception("Cliente inválido!");
             }
             //venda.setCliente((Cliente) comboCliente.getSelectionModel().getSelectedItem());
@@ -339,35 +333,44 @@ public class VendaController implements Initializable, Controller, Itens {
 
     @FXML
     private void atualizaValor() {
-        //Produto produto = (Produto) comboProduto.getSelectionModel().getSelectedItem();
-        //campoValor.setText(produto.getPrecoVendaFormatado());
+        Produto produto = (Produto) comboProduto.getSelectionModel().getSelectedItem();
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+        String res =  nf.format(produto.PrecoUnitario);
+        campoValor.setText(res);
     }
 
     @Override
     @FXML
     public void adicionarItem() throws ParseException {
-        /*NumberFormat nf = NumberFormat.getNumberInstance();
+        NumberFormat nf = NumberFormat.getNumberInstance();
         Venda.ItemVenda item = venda.new ItemVenda();
+        Produto p = (Produto) comboProduto.getSelectionModel().getSelectedItem();
+        item.setCodigo(p.Id);
         item.setProduto((Produto) comboProduto.getSelectionModel().getSelectedItem());
         item.setQuantidade(nf.parse(campoQuantidade.getText()).intValue());
         item.setValorUnitario(nf.parse(campoValor.getText()).floatValue());
         venda.addItem(item);
         tabelaProdutos.setItems(venda.getItens());
-        trocar(2);*/
+        trocar(2);
     }
 
     @Override
     @FXML
     public void removerItem(int codigoItem) throws ParseException {
-        /*Venda.ItemVenda item = venda.new ItemVenda(codigoItem);
+        Venda.ItemVenda item = venda.new ItemVenda(codigoItem);
         venda.removeItem(item);
         tabelaProdutos.setItems(venda.getItens());
-        trocar(2);*/
+        trocar(2);
     }
 
     @FXML
     private void cancelarItem() {
         trocar(2);
     }
+
+
+
 
 }

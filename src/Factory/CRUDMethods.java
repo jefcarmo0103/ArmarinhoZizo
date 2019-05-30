@@ -87,7 +87,7 @@ public class CRUDMethods implements ICRUD {
                     System.out.printf("  %s: %s(%s)%n",
                             columnNames.get(colIndex), objString, objType);
 
-                    result.put(columnNames.get(colIndex), objString);
+                    result.put(columnNames.get(colIndex) + result.size(), objString);
                 }
             }
 

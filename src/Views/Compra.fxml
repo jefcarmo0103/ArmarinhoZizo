@@ -88,32 +88,7 @@
                 <Label styleClass="title" text="Formulário de compras" />
                 <Label fx:id="rotuloFornecedor" styleClass="rotulo" text="Fornecedor" />
             <ComboBox fx:id="comboFornecedor" editable="true" prefWidth="350.0" />
-            <GridPane prefWidth="550.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="170.0" prefWidth="170.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label fx:id="rotuloData" styleClass="rotulo" text="Data" />
-                  <DatePicker fx:id="campoData" editable="false" prefWidth="150.0" GridPane.rowIndex="1" />
-                  <Label fx:id="rotuloSituacao" styleClass="rotulo" text="Situação" GridPane.columnIndex="1" />
-                  <HBox fx:id="situacoes" alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <RadioButton fx:id="aberta" mnemonicParsing="false" selected="true" text="Aberta">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="situacao" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="finalizada" mnemonicParsing="false" text="Finalizada" toggleGroup="$situacao" />
-                        <RadioButton fx:id="cancelada" mnemonicParsing="false" text="Cancelada" toggleGroup="$situacao" />
-                     </children>
-                  </HBox>
-               </children>
-            </GridPane>
+
             <Label fx:id="rotuloProdutos" styleClass="rotulo" text="Produtos" />
             <TableView fx:id="tabelaProdutos" prefHeight="200.0" prefWidth="550.0">
               <columns>

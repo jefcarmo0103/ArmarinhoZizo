@@ -2,23 +2,23 @@ package Models;
 
 public class Produto extends DefaultModel {
 
-    public String NomeProduto;
+    public int Id;
+    public String Nome;
     public double PrecoUnitario;
-    public int Quantidade;
 
 
     public Produto(){}
     public Produto(String nome_produto, double preco_unit){
-        NomeProduto = nome_produto;
+        Nome = nome_produto;
         PrecoUnitario = preco_unit;
     }
 
     public String getNomeProduto() {
-        return NomeProduto;
+        return Nome;
     }
 
     public void setNomeProduto(String nomeProduto) {
-        NomeProduto = nomeProduto;
+        Nome = nomeProduto;
     }
 
     public double getPrecoUnitario() {
@@ -29,13 +29,16 @@ public class Produto extends DefaultModel {
         PrecoUnitario = precoUnitario;
     }
 
-    public int getQuantidade() {
-        return Quantidade;
+    public int getId() {
+        return Id;
     }
 
-    public void setQuantidade(int quantidade) {
-        Quantidade = quantidade;
+    public void setId(int id) {
+        Id = id;
     }
+
+
+
 
 
 }

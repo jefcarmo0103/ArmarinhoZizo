@@ -4,10 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Cliente extends DefaultModel {
+
+	public int Id;
 	public String Nome;
+	public Calendar Data_Nasc;
 	public String Email;
 	public String Telefone;
-	public Calendar Data_Nasc;
+
 
 	public Cliente(){}
 	public Cliente(String nome, String email, String telefone, Calendar data_nasc){
@@ -43,6 +46,22 @@ public class Cliente extends DefaultModel {
 
 		Data_Nasc = data_Nasc;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Cliente [Nome=" + Nome +"]";
+	}
+
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
+	}
+
+
 
 
 

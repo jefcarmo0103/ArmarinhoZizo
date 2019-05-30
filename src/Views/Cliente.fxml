@@ -79,8 +79,10 @@
                 <Label styleClass="title" text="Formulário de clientes" />
                 <Label fx:id="rotuloNome" styleClass="rotulo" text="Nome" />
                 <TextField fx:id="campoNome" prefWidth="350.0" />
-                <Label fx:id="rotuloCpf" styleClass="rotulo" text="CPF" />
-                <TextField fx:id="campoCpf" prefWidth="150.0" />
+                <Label fx:id="rotuloCpf" styleClass="rotulo" text="Email" />
+                <TextField fx:id="campoEmail" prefWidth="150.0" />
+                <Label fx:id="rotuloTelefone" styleClass="rotulo" text="Telefone" />
+                <TextField fx:id="campoTelefone" prefWidth="150.0" />
                 <Label fx:id="rotuloDataNascimento" styleClass="rotulo" text="Data de nascimento" />
                 <DatePicker fx:id="campoDataNascimento" editable="false" prefWidth="150.0" />
                 <HBox spacing="5.0">

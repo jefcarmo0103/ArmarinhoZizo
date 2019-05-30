@@ -2,6 +2,9 @@ package DAOs;
 
 import Models.Cliente;
 import Models.DefaultModel;
+import Util.ValidateDate;
+import Util.ValidateInteger;
+
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ClienteDAO extends DefaultDAO {
-    private String table = "Cliente";
+    private String table = "CLIENTE";
 
     public ClienteDAO(){
         super();
@@ -41,25 +44,27 @@ public class ClienteDAO extends DefaultDAO {
         ArrayList<Cliente> resposta = new ArrayList<>();
         Field[] campos = clazz.getDeclaredFields();
 
+
+        if(result.size() == 0)
+            return resposta;
+
         int x = 0,i = 0;
         Cliente cliente = new Cliente();
 
-        while (x < campos.length){
+        while (x < result.size()){
 
-
-            String campo = campos[x].getName().toUpperCase().concat("_CLIENTE");
+            String campo = campos[i].getName().toUpperCase().concat("_" + table + x);
             Object o = result.get(campo);
-            Field field = clazz.getDeclaredField(campos[x].getName());
+            Field field = clazz.getDeclaredField(campos[i].getName());
 
-            if(isThisDateValid((String)o)){
-                Calendar data = Calendar.getInstance();
+            if(ValidateInteger.isIntegerValid((String)o)){
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-                sdf.setLenient(false);
+                int num = ValidateInteger.returnIntegerValid((String)o);
+                field.set(cliente,num);
 
-                Date date = sdf.parse((String)o);
-                data.setTime(date);
-
+            }
+            else if(ValidateDate.isThisDateValid((String)o)){
+                Calendar data = ValidateDate.returnCalendarValid((String)o);
                 field.set(cliente,data);
             }
             else{
@@ -69,7 +74,7 @@ public class ClienteDAO extends DefaultDAO {
             i++;
             x++;
 
-            if(i >= 4){
+            if(i >= 5){
                 resposta.add(cliente);
                 cliente = new Cliente();
                 i = 0;
@@ -93,29 +98,7 @@ public class ClienteDAO extends DefaultDAO {
         return params;
     }
 
-    private boolean isThisDateValid(String dateToValidate){
 
-        if(dateToValidate == null){
-            return false;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        sdf.setLenient(false);
-
-        try {
-
-            //if not valid, it will throw ParseException
-            Date date = sdf.parse(dateToValidate);
-            System.out.println(date);
-
-        } catch (ParseException e) {
-
-            e.printStackTrace();
-            return false;
-        }
-
-        return true;
-    }
 
 
     @Override

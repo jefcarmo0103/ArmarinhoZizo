@@ -40,7 +40,6 @@
                                 <TableColumn fx:id="colunaCliente" editable="false" prefWidth="250.0" styleClass="esquerda" text="Cliente" />
                                 <TableColumn fx:id="colunaData" editable="false" maxWidth="85.0" minWidth="85.0" prefWidth="85.0" styleClass="centralizado" text="Data" />
                                 <TableColumn fx:id="colunaTotal" editable="false" maxWidth="85.0" minWidth="85.0" prefWidth="85.0" styleClass="direita" text="Total" />
-                                <TableColumn fx:id="colunaSituacao" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" styleClass="centralizado" text="Situação" />
                                 <TableColumn fx:id="colunaEditar" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" />
                                 <TableColumn fx:id="colunaExcluir" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" />
                             </columns>
@@ -87,7 +86,7 @@
             <children>
                 <Label styleClass="title" text="Formulário de vendas" />
                 <Label fx:id="rotuloCliente" styleClass="rotulo" text="Cliente" />
-            <ComboBox fx:id="comboCliente" editable="true" prefWidth="350.0" />
+            <ComboBox fx:id="cbCliente" editable="true" prefWidth="350.0" />
             <GridPane prefWidth="550.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="170.0" prefWidth="170.0" />

@@ -2,6 +2,7 @@ package Views.component;
 
 import DAOs.ClienteDAO;
 import Models.Cliente;
+import Views.component.utilcomp.ClienteConverter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,8 +17,44 @@ import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 
 public class ComboCliente extends ComboBox {
-    ComboBox<Cliente> cmbCliente;
+    ComboBox cmbCliente;
     ClienteDAO dao;
+
+    public String ItemSelected;
+
+    public ComboCliente(ComboBox cmb){
+        this.cmbCliente = cmb;
+
+        ObservableList allClientes = FXCollections.observableArrayList(getSelect());
+        cmbCliente.getItems().addAll(allClientes);
+
+        cmbCliente.setConverter(new ClienteConverter());
+
+
+        cmbCliente.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cliente>() {
+            @Override
+            public void changed(ObservableValue<? extends Cliente> observable,
+                                Cliente oldValue, Cliente newValue) {
+                cmbClienteChanged(observable, oldValue, newValue);
+            }
+
+        });
+
+        cmbCliente.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                                Number oldValue, Number newValue) {
+                cmbClienteIndexChanged(observable, oldValue, newValue);
+            }
+        });
+
+        cmbCliente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                valueChanged(cmbCliente);
+            }
+        });
+    }
 
     private ClienteDAO getInstanceDAO(){
         dao = new ClienteDAO();
@@ -38,51 +75,22 @@ public class ComboCliente extends ComboBox {
         return list;
     }
 
-    public ComboBox initCombo (ComboBox cmb){
-
-
-        cmbCliente = new ComboBox<>();
-
-        ObservableList allClientes = FXCollections.observableArrayList(getSelect());
-        cmbCliente.getItems().addAll(allClientes);
-        //cmbCliente.setConverter();
-
-        cmbCliente.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cliente>() {
-            @Override
-            public void changed(ObservableValue<? extends Cliente> observable,
-                                Cliente oldValue, Cliente newValue) {
-                cmbClienteChanged(observable, oldValue, newValue);
-            }
-
-        });
-
-        cmbCliente.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-           @Override
-           public void changed(ObservableValue<? extends Number> observable,
-                               Number oldValue, Number newValue) {
-               cmbClienteIndexChanged(observable, oldValue, newValue);
-           }
-        });
-
-        cmbCliente.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                valueChanged(cmbCliente);
-            }
-        });
-
-
-        return null;
-    }
 
     private void cmbClienteIndexChanged(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        System.out.println( "Indexchanged: old = " + oldValue + ", new = " + newValue + "\n");
     }
 
     private void valueChanged(ComboBox<Cliente> cmbCliente) {
         Cliente c = cmbCliente.getValue();
+        ItemSelected = c.Nome;
+        System.out.println(ItemSelected);
     }
 
     private void cmbClienteChanged(ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) {
+        String oldText = oldValue == null ? "null" : oldValue.toString();
+        String newText = newValue == null ? "null" : newValue.toString();
+
+        System.out.println("Itemchanged: old = " + oldText + ", new = " + newText + "\n");
     }
 
 

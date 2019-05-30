@@ -2,6 +2,7 @@ package Models;
 
 public class Fornecedor extends DefaultModel {
 
+    public int Id;
     public String NomeFornecedor;
     public String CNPJ;
     public String Email;
@@ -56,6 +57,16 @@ public class Fornecedor extends DefaultModel {
     public void setContato(String contato) {
         Contato = contato;
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+
 
 }
 

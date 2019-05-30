@@ -27,4 +27,14 @@ public class Compra extends DefaultModel{
     public void setValorTotal(double valorTotal) {
         ValorTotal = valorTotal;
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public int Id;
 }
